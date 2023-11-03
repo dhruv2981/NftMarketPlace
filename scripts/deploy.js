@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 async function main() {
-  const nftMarketPlace = await hre.ethers.deployContract("NftMarketplace");
+  const nftMarketPlace = await hre.ethers.deployContract("NFTMarketplace");
 
   await nftMarketPlace.waitForDeployment();
 
@@ -10,7 +10,8 @@ async function main() {
   //     lockedAmount
   //   )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
   // );
-  console.log(`deployed contract address ${nftMarketPlace.address}`)
+  console.log(nftMarketPlace);
+  console.log(`deployed contract address ${nftMarketPlace.target}`)
 }
 
 main().catch((error) => {
