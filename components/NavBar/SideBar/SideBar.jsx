@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { GrClose } from "react-icons/gr";
@@ -17,7 +17,8 @@ import Style from "./SideBar.module.css";
 import images from "../../../img";
 import Button from "../../Button/Button";
 
-const SideBar = ({ setOpenSideMenu }) => {
+
+const SideBar = ({ setOpenSideMenu,currentAccount,connectWallet }) => {
   //------USESTATE
   const [openDiscover, setOpenDiscover] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
@@ -97,6 +98,11 @@ const SideBar = ({ setOpenSideMenu }) => {
     setOpenSideMenu(false);
   };
 
+  // //smart contract
+  // const { checkIfWalletConnected, currentAccount, connectWallet } = useContext(
+  //   NFTMarketplaceContext
+  // );
+
   return (
     <div className={Style.sideBar}>
       <GrClose
@@ -172,8 +178,20 @@ const SideBar = ({ setOpenSideMenu }) => {
       </div>
 
       <div className={Style.sideBar_button}>
-        <Button btnName="Create" handleClick={() => {}} />
-        <Button btnName="Connect Wallet" handleClick={() => {}} />
+        {currentAccount == "" ? (
+          <a href="/uploadNFT">
+            <Button btnName="Connect" handleClick={() => {connectWallet()}} />
+          </a>
+        ) : (
+          <Button btnName="Create" handleClick={() => {}} />
+        )}
+
+        <Button
+          btnName="Connect Wallet"
+          handleClick={() => {
+            connectWallet();
+          }}
+        />
       </div>
     </div>
   );

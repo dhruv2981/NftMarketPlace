@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 //----IMPORT ICON
@@ -11,6 +11,9 @@ import Style from "./NavBar.module.css";
 import { Discover, HelpCenter, Notification, Profile, SideBar } from "./index";
 import { Button } from "../componentsindex";
 import images from "../../img";
+
+//IMPORT FROM SMART CONTRACT
+import { NFTMarketplaceContext } from "../../Context/NFTMarketPlace";
 
 const NavBar = () => {
   //----USESTATE COMPONNTS
@@ -80,6 +83,9 @@ const NavBar = () => {
     }
   };
 
+  //smart contract
+  const {checkIfWalletConnected,currentAccount,connectWallet}=useContext(NFTMarketplaceContext);
+
   return (
     <div className={Style.navbar}>
       <div className={Style.navbar_container}>
@@ -133,7 +139,20 @@ const NavBar = () => {
 
           {/* CREATE BUTTON SECTION */}
           <div className={Style.navbar_container_right_button}>
-            <Button btnName="Create" handleClick={() => {}} />
+            {currentAccount == "" ? (
+              <Button
+                btnName="Connect"
+                handleClick={() => {
+                  connectWallet()
+                }}
+              />
+            ) : (
+              <a href="/uploadNFT">
+                <Button btnName="Create" handleClick={() => {
+                }}/>
+              </a>
+              //a tag use krne pe wo reload hota hai
+            )}
           </div>
 
           {/* USER PROFILE */}
@@ -167,7 +186,7 @@ const NavBar = () => {
       {/* SIDBAR CPMPONE/NT */}
       {openSideMenu && (
         <div className={Style.sideBar}>
-          <SideBar setOpenSideMenu={setOpenSideMenu} />
+          <SideBar setOpenSideMenu={setOpenSideMenu} currentAccount={currentAccount} connectWallet={connectWallet}/>
         </div>
       )}
     </div>
