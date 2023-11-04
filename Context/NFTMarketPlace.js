@@ -5,27 +5,29 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { NFTMarketplaceAddress, NFTMarketplaceABI } from "./constants";
-// import { Web3Storage } from "web3.storage";
+import { Web3Storage,File } from "web3.storage";
 
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
-const projectId="your project id here";
-const projectSecretKey="project secretKey here"
-const auth=`Basic ${Buffer.from(`${projectId}:${projectSecretKey}`).toString("base64")}`;
-const subdomain="your sub domain"
+// const projectId="your project id here";
+// const projectSecretKey="project secretKey here"
+// const auth=`Basic ${Buffer.from(`${projectId}:${projectSecretKey}`).toString("base64")}`;
+// const subdomain="your sub domain"
 
-const client=ipfsHttpClient({
-    host:"infura-ipfs.io",
-    port:5001,
-    protocol:"https",
-    headers:{
-        authorization:auth,
-    },
+// const client=ipfsHttpClient({
+//     host:"infura-ipfs.io",
+//     port:5001,
+//     protocol:"https",
+//     headers:{
+//         authorization:auth,
+//     },
+// })
+const client = new Web3Storage({
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGM1NTlmYkU1MjlhQzAxMzdGMjg1NTM5NTk2ZjQzRmVlODA1MzYyNEUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2OTkwODQxODIzMDUsIm5hbWUiOiJOZnRNYXJrZXRQbGFjZSJ9.Je4WxVRY7p4D_qVCb7qwMUt54i4UBiZySw94fa6m0nI'
+});
+const client2=new Web3Storage({
+    token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGM1NTlmYkU1MjlhQzAxMzdGMjg1NTM5NTk2ZjQzRmVlODA1MzYyNEUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2OTkwOTcwNzMzNTYsIm5hbWUiOiJEYXRhVG9rZW4ifQ.CZA_kO6xQpzzV__Mnpe_NhkmYRNNuo9dmx8t3PyiKyA'
 })
-// const client = new Web3Storage({
-//   token:
-//     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGM1NTlmYkU1MjlhQzAxMzdGMjg1NTM5NTk2ZjQzRmVlODA1MzYyNEUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2OTkwODQxODIzMDUsIm5hbWUiOiJOZnRNYXJrZXRQbGFjZSJ9
-//       .Je4WxVRY7p4D_qVCb7qwMUt54i4UBiZySw94fa6m0nI,
-// });
 
 // Fetching Smart Contract
 const fetchContract = (signerOrProvider) =>
@@ -95,23 +97,46 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
   //upload to ipfs
   const uploadToIPFS = async (file) => {
-    const added = await client.add({
-      content: file,
-    });
-    const url = `${subdomain}/ipfs/${added.path}`;
+    try{
+    const content = [new File([file],"1st nft")];
+    // const content = new Blob([file], { type: file.type });
+    console.log("a",content);
+    const rootCid  = await client.put(content);
+    console.log("b");
+    const info = await client.status(rootCid);
+    const cid=info.cid;
+    const url=`https://ipfs.io/ipfs/${cid.toString()}`
+    console.log(url);
     return url;
+    }
+    catch(error){
+        console.log("error uploading to ipfs",error);
+    }
+
+
+    // const added = await client.add({
+    //   content: file,
+    // });
+    // const url = `${subdomain}/ipfs/${added.path}`;
+    
   };
 
   //create nft function
-  const createNFT = async (name,price,image,description,router) => {
+  const createNFT = async (name,price,image,description,router,fileUrl) => {
     if (!name || !description || !price || !image)
       return console.log("Data is missing");
 
-    const data = JSON.stringify({ name, description, image: fileUrl });
+    const data = JSON.stringify({ name, description, image});
+    const jsonDataBuffer = Buffer.from(data);
+    const file = new File([jsonDataBuffer], 'data.json', { type: 'application/json' });
+
+
 
     try {
-      const added = await client.add(data);
-      const url = `https://infura-ipfs.io/ipfs/${added.path}`;
+    const cid = await client2.put([file]);
+    console.log(cid);
+    //   const added = await client.put(data);
+      const url = ``;
 
       await createSale(url, price);
     } catch (error) {
@@ -126,6 +151,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
       const contract = await connectingWithSmartContract();
 
       const listingPrice = await contract.getListingPrice();
+      
       const transaction = !isReselling
         ? await contract.createToken(url, price, {
             value: listingPrice.toString(),
@@ -177,7 +203,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
       return items;
     } catch (error) {
-      console.log("Error while fetching nfts");
+      console.log("Error while fetching nfts",error);
     }
   };
 
