@@ -8,10 +8,10 @@ import { NFTMarketplaceAddress, NFTMarketplaceABI } from "./constants";
 // import { Web3Storage } from "web3.storage";
 
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
-const projectId="your project id here";
-const projectSecretKey="project secretKey here"
+const projectId = '2Xi7UzKrgM2eutHzoq5KUlw9Zmp'
+const projectSecretKey = '9fc1288fb9d2c95f27b76ccd5f936458'
 const auth=`Basic ${Buffer.from(`${projectId}:${projectSecretKey}`).toString("base64")}`;
-const subdomain="your sub domain"
+const subdomain = 'https://dhruv12-nft-marketplace.infura-ipfs.io'
 
 const client=ipfsHttpClient({
     host:"infura-ipfs.io",
@@ -99,6 +99,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
       content: file,
     });
     const url = `${subdomain}/ipfs/${added.path}`;
+    console.log(url,'c');
     return url;
   };
 
@@ -107,7 +108,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
     if (!name || !description || !price || !image)
       return console.log("Data is missing");
 
-    const data = JSON.stringify({ name, description, image: fileUrl });
+    const data = JSON.stringify({ name, description, image });
 
     try {
       const added = await client.add(data);
@@ -145,9 +146,9 @@ export const NFTMarketplaceProvider = ({ children }) => {
   //fetch nft function
   const fetchNFTs = async () => {
     try {
-      const provider = new ethers.providers.JsonRpcProvider();
+      const provider = new ethers.JsonRpcProvider()
       const contract = fetchContract(provider);
-
+      
       const data = await contract.fetchMarketItem();
       const items = await Promise.all(
         data.map(
@@ -177,6 +178,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
       return items;
     } catch (error) {
+      console.log(error)
       console.log("Error while fetching nfts");
     }
   };

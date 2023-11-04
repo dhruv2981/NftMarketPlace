@@ -10,6 +10,7 @@ async function main() {
   //     lockedAmount
   //   )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
   // );
+
   console.log(nftMarketPlace);
   console.log(`deployed contract address ${nftMarketPlace.target}`)
 }
