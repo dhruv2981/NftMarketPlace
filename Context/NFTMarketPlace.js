@@ -9,6 +9,8 @@ import { NFTMarketplaceAddress, NFTMarketplaceABI } from "./constants";
 
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 // const { Web3Provider } = require('ethers/providers');
+const { utils } = require("ethers");
+// var cors = require("cors");
 const projectId = '2Xi7UzKrgM2eutHzoq5KUlw9Zmp'
 const projectSecretKey = '9fc1288fb9d2c95f27b76ccd5f936458'
 // const auth=`Basic ${Buffer.from(`${projectId}:${projectSecretKey}`).toString("base64")}`;
@@ -122,7 +124,9 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
     try {
       const added = await client.add(data);
-      const url = `https://infura-ipfs.io/ipfs/${added.path}`;
+    //   const url = `https://infura-ipfs.io/ipfs/${added.path}`;
+    const url = `${subdomain}/ipfs/${added.path}`;
+        
 
       await createSale(url, price);
     } catch (error) {
@@ -170,14 +174,22 @@ export const NFTMarketplaceProvider = ({ children }) => {
         data.map(
           async ({ tokenId, seller, owner, price: unformattedPrice }) => {
             const tokenURI = await contract.tokenURI(tokenId);
+            console.log(tokenURI);
+
 
             const {
               data: { image, name, description },
             } = await axios.get(tokenURI);
-            const price = ethers.price.formatUnits(
-              unformattedPrice.toString(),
-              "ethers"
-            );
+            console.log(data);
+            console.log(name)
+            console.log(image)
+            console.log(description)
+            console.log("hii");
+            const price=10;
+            // const price = utils.formatUnits(
+            //   unformattedPrice,
+            //   "ethers"
+            // );
             return {
               price,
               tokenId: tokenId.toNumber(),
@@ -191,8 +203,9 @@ export const NFTMarketplaceProvider = ({ children }) => {
           }
         )
       );
-      console.log(items);
       console.log("items");
+      console.log(items);
+      
 
 
       return items;
@@ -218,12 +231,13 @@ export const NFTMarketplaceProvider = ({ children }) => {
             const {
               data: { image, name, description },
             } = await axios.get(tokenURI);
-            const price = ethers.price.formatUnits(
-              unformattedPrice.toString(),
-              "ethers"
-            );
+            console.log(data);
+            // const price = utils.formatUnits(
+            //   unformattedPrice.toString(),
+            //   'ethers'
+            // );
             return {
-              price,
+            //   price,
               tokenId: tokenId.toNumber(),
               seller,
               owner,
