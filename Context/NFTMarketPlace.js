@@ -10,11 +10,13 @@ import { NFTMarketplaceAddress, NFTMarketplaceABI } from "./constants";
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 const projectId = '2Xi7UzKrgM2eutHzoq5KUlw9Zmp'
 const projectSecretKey = '9fc1288fb9d2c95f27b76ccd5f936458'
-const auth=`Basic ${Buffer.from(`${projectId}:${projectSecretKey}`).toString("base64")}`;
+// const auth=`Basic ${Buffer.from(`${projectId}:${projectSecretKey}`).toString("base64")}`;
+const auth =
+  "Basic " + Buffer.from(projectId + ":" + projectSecretKey).toString("base64");
 const subdomain = 'https://dhruv12-nft-marketplace.infura-ipfs.io'
 
 const client=ipfsHttpClient({
-    host:"infura-ipfs.io",
+    host:"ipfs.infura.io",
     port:5001,
     protocol:"https",
     headers:{
@@ -95,12 +97,18 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
   //upload to ipfs
   const uploadToIPFS = async (file) => {
+    try{
+    console.log("2")
     const added = await client.add({
       content: file,
     });
+    console.log("1")
     const url = `${subdomain}/ipfs/${added.path}`;
     console.log(url,'c');
-    return url;
+    return url;}
+    catch(error){
+        console.log("error uplaoding",error)
+    }
   };
 
   //create nft function
