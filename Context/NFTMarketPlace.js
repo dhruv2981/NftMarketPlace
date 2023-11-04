@@ -8,6 +8,7 @@ import { NFTMarketplaceAddress, NFTMarketplaceABI } from "./constants";
 // import { Web3Storage } from "web3.storage";
 
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+// const { Web3Provider } = require('ethers/providers');
 const projectId = '2Xi7UzKrgM2eutHzoq5KUlw9Zmp'
 const projectSecretKey = '9fc1288fb9d2c95f27b76ccd5f936458'
 // const auth=`Basic ${Buffer.from(`${projectId}:${projectSecretKey}`).toString("base64")}`;
@@ -47,6 +48,7 @@ const connectingWithSmartContract = async () => {
     const signer = provider.getSigner();
     //whoever interact with smart contract become the signer
     const contract = fetchContract(signer);
+    console.log(contract)
     return contract;
   } catch (error) {
     console.log("Something went wrong while connecting with contract: ", error);
@@ -147,15 +149,21 @@ export const NFTMarketplaceProvider = ({ children }) => {
       router.push('/searchPage');
       
     } catch (error) {
-      console.log("error while creating sale");
+      console.log("error while creating sale",error);
     }
   };
 
   //fetch nft function
   const fetchNFTs = async () => {
     try {
-      const provider = new ethers.JsonRpcProvider()
+      const provider = new ethers.providers.JsonRpcProvider(
+        "https://sepolia.infura.io/v3/7d6babab81ca431993f87e88414ff850"
+      );
+      console.log("r1");
       const contract = fetchContract(provider);
+      console.log("r2");
+      console.log(contract);
+
       
       const data = await contract.fetchMarketItem();
       const items = await Promise.all(
@@ -183,11 +191,13 @@ export const NFTMarketplaceProvider = ({ children }) => {
           }
         )
       );
+      console.log(items);
+      console.log("items");
+
 
       return items;
     } catch (error) {
-      console.log(error)
-      console.log("Error while fetching nfts");
+      console.log("Error while fetching nfts",error);
     }
   };
 
@@ -226,7 +236,9 @@ export const NFTMarketplaceProvider = ({ children }) => {
         )
       );
       return items;
-    } catch (error) {}
+    } catch (error) {
+        console.log("eryfj",error)
+    }
   };
 
   //but nft

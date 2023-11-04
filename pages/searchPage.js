@@ -20,14 +20,17 @@ const searchPage = () => {
   useEffect(() => {
     fetchNFTs().then((items)=>{
       if(items){
-      setNfts(items.reverse())
-      setNftsCopy(items);}
+      setNfts(items.reverse());
+      setNftsCopy(items);
+      console.log(nfts);
+      console.log("nfts");
+    }
       else{
-        console.log("error receiving data from nfts");
+        console.log("error receiving data from nfts okkay");
       }
     });
   
-  });
+  },[]);
   
 
   // const collectionArray = [
