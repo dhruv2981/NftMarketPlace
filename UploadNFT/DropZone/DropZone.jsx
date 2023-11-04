@@ -21,13 +21,13 @@ const DropZone = ({
   setImage
 }) => {
     
-  var [fileUrl,setFileUrl] = useState("");
+  var [fileUrl,setUrl] = useState("");
 
   const onDrop = useCallback(async (acceptedFile) => {
     console.log(acceptedFile);
     const url=await uploadToIPFS(acceptedFile[0]);
     console.log("a",url);
-    setFileUrl(url.toString());
+    setUrl(url.toString());
     setImage(url);
     console.log(fileUrl,"b");
     // console.log(setImage,"d");
