@@ -163,28 +163,16 @@ export const NFTMarketplaceProvider = ({ children }) => {
       const provider = new ethers.providers.JsonRpcProvider(
         "https://sepolia.infura.io/v3/7d6babab81ca431993f87e88414ff850"
       );
-      console.log("r1");
       const contract = fetchContract(provider);
-      console.log("r2");
-      console.log(contract);
-
-      
+      console.log(contract); 
       const data = await contract.fetchMarketItem();
       const items = await Promise.all(
         data.map(
           async ({ tokenId, seller, owner, price: unformattedPrice }) => {
             const tokenURI = await contract.tokenURI(tokenId);
-            console.log(tokenURI);
-
-
             const {
               data: { image, name, description },
             } = await axios.get(tokenURI);
-            console.log(data);
-            console.log(name)
-            console.log(image)
-            console.log(description)
-            console.log("hii");
             const price=10;
             // const price = utils.formatUnits(
             //   unformattedPrice,
@@ -203,11 +191,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
           }
         )
       );
-      console.log("items");
       console.log(items);
-      
-
-
       return items;
     } catch (error) {
       console.log("Error while fetching nfts",error);
@@ -231,13 +215,14 @@ export const NFTMarketplaceProvider = ({ children }) => {
             const {
               data: { image, name, description },
             } = await axios.get(tokenURI);
-            console.log(data);
+            // console.log(data);
+            const price=10;
             // const price = utils.formatUnits(
             //   unformattedPrice.toString(),
             //   'ethers'
             // );
             return {
-            //   price,
+              price,
               tokenId: tokenId.toNumber(),
               seller,
               owner,
