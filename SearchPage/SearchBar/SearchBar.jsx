@@ -1,9 +1,11 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { BsSearch, BsArrowRight } from "react-icons/bs";
 
 //INTERNAL IMPORT
 import Style from "./SearchBar.module.css";
-const SearchBar = () => {
+const SearchBar = ({onHandleSearch,onClearSearch}) => {
+
+  // const [search,]
   return (
     <div className={Style.SearchBar}>
       <div className={Style.SearchBar_box}>

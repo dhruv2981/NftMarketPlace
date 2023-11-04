@@ -224,11 +224,11 @@ const UloadNFT = ({ uploadToIPFS, createNFT }) => {
               image,
               description,
               router,
-              website,
-              royalties,
-              fileSize,
-              category,
-              properties
+              // website,
+              // royalties,
+              // fileSize,
+              // category,
+              // properties
 
             )}}
             classStyle={Style.upload_box_btn_style}
