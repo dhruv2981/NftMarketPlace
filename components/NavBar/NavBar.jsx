@@ -1,6 +1,7 @@
 import React, { useState, useEffect,useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 //----IMPORT ICON
 import { MdNotifications } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
@@ -12,10 +13,12 @@ import { Discover, HelpCenter, Notification, Profile, SideBar } from "./index";
 import { Button } from "../componentsindex";
 import images from "../../img";
 
+
 //IMPORT FROM SMART CONTRACT
 import { NFTMarketplaceContext } from "../../Context/NFTMarketPlace";
 
 const NavBar = () => {
+  const router = useRouter()
   //----USESTATE COMPONNTS
   const [discover, setDiscover] = useState(false);
   const [help, setHelp] = useState(false);
@@ -96,6 +99,8 @@ const NavBar = () => {
               alt="NFT MARKET PLACE"
               width={100}
               height={100}
+              onClick={()=>router.push("/")}
+              style={{cursor:"pointer"}}
             />
           </div>
           <div className={Style.navbar_container_left_box_input}>
@@ -147,10 +152,9 @@ const NavBar = () => {
                 }}
               />
             ) : (
-              <a href="/uploadNFT">
-                <Button btnName="Create" handleClick={() => {
-                }}/>
-              </a>
+              
+                <Button btnName="Create" handleClick={()=>router.push("./uploadNFT")}/>
+              
               //a tag use krne pe wo reload hota hai
             )}
           </div>
@@ -168,7 +172,7 @@ const NavBar = () => {
                 className={Style.navbar_container_right_profile}
               />
 
-              {profile && <Profile />}
+              {profile && <Profile currentAccount={currentAccount}/>}
             </div>
           </div>
 
