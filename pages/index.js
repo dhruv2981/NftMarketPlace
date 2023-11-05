@@ -26,11 +26,34 @@ import { NFTMarketplaceContext } from "../Context/NFTMarketPlace";
 
 
 const Home = () => {
-  const {checkIfWalletConnected}=useContext(NFTMarketplaceContext);
+  const {checkIfWalletConnected,currentAccount}=useContext(NFTMarketplaceContext);
   useEffect(()=>{
     // connectingWithSmartContract()
     checkIfWalletConnected()
+
+
   },[]);
+  const { fetchNFTs } = useContext(NFTMarketplaceContext)
+  const [nfts, setNfts] = useState([])
+  const [nftsCopy, setNftsCopy] = useState([])
+  //copy for filter purpose
+
+  useEffect(() => {
+    fetchNFTs().then((items) => {
+      if (items) {
+        setNfts(items.reverse())
+        setNftsCopy(items)
+        console.log(nfts)
+        console.log('nfts')
+      } else {
+        console.log('error receiving data from nfts okkay')
+      }
+    })
+  }, [])
+  // useEffect(() => {
+  //   // connectingWithSmartContract()
+  //   setCurrentAccount()
+  // },[currentAccount])
 
   return (
     <div className={Style.homePage}>
@@ -50,7 +73,7 @@ const Home = () => {
         paragraph="Discover the most outstanding NFTs in all topics of life."
       />
       <Filter />
-      <NFTCard />
+      <NFTCard NFTData = {nfts}/>
       <Title
         heading="Browse by category"
         paragraph="Explore the NFTs in the most featured categories."

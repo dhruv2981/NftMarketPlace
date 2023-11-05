@@ -12,24 +12,26 @@ const AuthorNFTCardBox = ({
   like,
   follower,
   following,
+  nfts,
+  myNfts,
 }) => {
-  const collectiablesArray = [
-    images.nft_image_1,
-    images.nft_image_2,
-    images.nft_image_3,
-    images.nft_image_1,
-    images.nft_image_2,
-    images.nft_image_3,
-    images.nft_image_1,
-    images.nft_image_2,
-  ];
+  // const collectiablesArray = [
+  //   images.nft_image_1,
+  //   images.nft_image_2,
+  //   images.nft_image_3,
+  //   images.nft_image_1,
+  //   images.nft_image_2,
+  //   images.nft_image_3,
+  //   images.nft_image_1,
+  //   images.nft_image_2,
+  // ]
 
-  const createdArray = [
-    images.nft_image_1,
-    images.nft_image_2,
-    images.nft_image_3,
-    images.nft_image_1,
-  ];
+  // const createdArray = [
+  //   images.nft_image_1,
+  //   images.nft_image_2,
+  //   images.nft_image_3,
+  //   images.nft_image_1,
+  // ]
 
   const likeArray = [
     images.nft_image_1,
@@ -37,7 +39,7 @@ const AuthorNFTCardBox = ({
     images.nft_image_3,
     images.nft_image_1,
     images.nft_image_2,
-  ];
+  ]
 
   const followerArray = [
     {
@@ -64,7 +66,7 @@ const AuthorNFTCardBox = ({
       background: images.creatorbackground6,
       user: images.user6,
     },
-  ];
+  ]
 
   const followingArray = [
     {
@@ -87,11 +89,11 @@ const AuthorNFTCardBox = ({
       background: images.creatorbackground1,
       user: images.user1,
     },
-  ];
+  ]
   return (
     <div className={Style.AuthorNFTCardBox}>
-      {collectiables && <NFTCardTwo NFTData={collectiablesArray} />}
-      {created && <NFTCardTwo NFTData={createdArray} />}
+      {collectiables && <NFTCardTwo NFTData={nfts} />}
+      {created && <NFTCardTwo NFTData={myNfts} />}
       {like && <NFTCardTwo NFTData={likeArray} />}
       {follower && (
         <div className={Style.AuthorNFTCardBox_box}>
@@ -108,7 +110,7 @@ const AuthorNFTCardBox = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default AuthorNFTCardBox;
