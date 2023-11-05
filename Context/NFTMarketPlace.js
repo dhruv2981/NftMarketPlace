@@ -79,6 +79,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
         // }, 5000)
         await console.log(currentAccount,'b');
         console.log("ss");
+        console.log("yo")
+        console.log('yo')
         return accounts[0];
       } else {
         console.log("No Account found");
@@ -223,7 +225,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
               data: { image, name, description },
             } = await axios.get(tokenURI);
             // console.log(data);
-            const price=10;
+            const price=0.1;
             // const price = utils.formatUnits(
             //   unformattedPrice.toString(),
             //   'ethers'

@@ -261,7 +261,7 @@ const NFTDescription = ({nft}) => {
 
               <span>[96 in stock]</span>
             </div>
-                
+                {console.log(currentAccount,"a")}
             <div className={Style.NFTDescription_box_profile_biding_box_button}>
               {currentAccount == nft.seller.toLowerCase() ? (
                 <p>You cannot buy your own NFT</p>

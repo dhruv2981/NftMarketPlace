@@ -99,7 +99,7 @@ const NFTDetailsImg = ({nft}) => {
             <p>
               <small>Contract Address</small>
               <br></br>
-              {nft.owner}
+              {nft.seller}
             </p>
             <p>
               <small>Token ID</small>
