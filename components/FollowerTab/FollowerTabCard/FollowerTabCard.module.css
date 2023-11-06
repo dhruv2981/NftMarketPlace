@@ -8,6 +8,7 @@
     transition: all .2s ease-in;
     cursor: pointer;
     position: relative;
+    color: black;
 }
 
 .FollowerTabCard_box:hover{

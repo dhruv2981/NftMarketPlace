@@ -29,6 +29,7 @@
     font-size: 1.3rem;
     cursor: pointer;
     background-color: var(--main-bg-color);
+    color: black;
 }
 .filter_box_left button:hover{
     border:  1px solid var(--icons-color);
@@ -41,7 +42,7 @@
     padding: 1rem 2rem;
     border-radius: 2rem;
     color: var(--icons-color);
-    box-shadow: var(--box-shadow);
+    background-color: white;
     cursor: pointer;
     display: flex;
     align-items: center;

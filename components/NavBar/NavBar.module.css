@@ -67,11 +67,11 @@
 .navbar_container_right_help_box{
     position: absolute;
     padding: 1rem .5rem;
-    box-shadow: var(--box-shadow);
     font-size: 1rem;
     width: 15rem;
     border-radius: 1rem;
     background-color: var(--main-bg-color);
+    color: black;
 }
 
 .navbar_container_right_notify{

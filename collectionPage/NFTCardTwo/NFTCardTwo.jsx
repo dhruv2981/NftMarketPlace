@@ -8,6 +8,7 @@ import Link from "next/link";
 //INTERNAL IMPORT
 import Style from "./NFTCardTwo.module.css";
 import { LikeProfile } from "../../components/componentsindex";
+import images from "../../img";
 
 const NFTCardTwo = ({ NFTData }) => {
   const [like, setLike] = useState(false);
@@ -43,7 +44,7 @@ const NFTCardTwo = ({ NFTData }) => {
 
             <div className={Style.NFTCardTwo_box_img}>
               <Image
-                src={el.image}
+                src={images.nft_image_2}
                 alt="NFT"
                 width={500}
                 height={500}

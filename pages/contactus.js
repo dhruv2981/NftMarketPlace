@@ -60,7 +60,7 @@ const contactus = () => {
                 <label htmlFor="name">Full Name</label>
                 <input
                   type="text"
-                  placeholder="shoaib bhai"
+                  placeholder="Full Name"
                   className={formStyle.Form_box_input_userName}
                 />
               </div>
@@ -70,7 +70,7 @@ const contactus = () => {
                   <div className={formStyle.Form_box_input_box_icon}>
                     <HiOutlineMail />
                   </div>
-                  <input type="text" placeholder="Email*" />
+                  <input type="text" placeholder="Email" />
                 </div>
               </div>
               <div className={formStyle.Form_box_input}>

@@ -13,7 +13,9 @@
     cursor: pointer;
     transition: all .3s ease-in;
     border-radius: 1rem;
-}
+    background-color: white;
+    color: black;
+} 
 
 .NFTCardTwo_box:hover{
     box-shadow: var(--box-shadow);
