@@ -98,7 +98,7 @@ const NavBar = () => {
               src={images.logo}
               alt="NFT MARKET PLACE"
               width={100}
-              height={100}
+               height={100}
               onClick={()=>router.push("/")}
               style={{cursor:"pointer"}}
             />

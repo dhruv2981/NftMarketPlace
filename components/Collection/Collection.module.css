@@ -26,7 +26,6 @@
     gap: 1rem;
     align-items: center;
     font-size: 1.2rem;
-    box-shadow: var(--box-shadow);
 }
 
 .collection_collections_btn button{

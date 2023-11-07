@@ -11,8 +11,8 @@ const loginAndSignUp = () => {
 
   const socialImage = [
     {
-      social: images.facebook,
-      name: "Continue with Facebook",
+      social: images.telegram,
+      name: "Continue with Gmail",
     },
     {
       social: images.twitter,
@@ -53,7 +53,7 @@ const loginAndSignUp = () => {
         <div className={Style.user_box_input}>
           <div className={Style.user_box_input_box}>
             <label htmlFor="email">Email address</label>
-            <input type="email" placeholder="example@emample.com" />
+            <input type="email" placeholder="example@gmail.com" />
           </div>
 
           <div className={Style.user_box_input_box}>

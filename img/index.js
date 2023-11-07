@@ -28,7 +28,7 @@ import logoLight from "./logo-light.svg";
 import logo from "./logo.svg";
 import facebook from "./facebook.svg";
 import twitter from "./twitter.svg";
-import telegram from "./telegram.svg";
+import telegram from "./gmail.svg";
 import youtube from "./youtube.svg";
 import vimeo from "./vimeo.svg";
 import vector from "./VectorHIW.svg";
